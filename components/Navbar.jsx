@@ -39,9 +39,12 @@ export default function Navbar() {
             Log in
           </Link>
 
-          <button className="border-2 p-3 rounded-md hover:bg-red-700">
+          <Link
+            href="/register"
+            className="border-2 p-3 rounded-md hover:bg-red-700"
+          >
             Create account
-          </button>
+          </Link>
         </div>
       </div>
     </div>

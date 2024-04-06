@@ -1,12 +1,37 @@
 import Navbar from "@/components/Navbar";
+import Post from "@/components/post";
+import { useEffect, useState } from "react";
 
 export default function Home() {
+  const [data, setData] = useState({});
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
+          "https://k-desafio-node-backend-2-dev-zsez.4.us-1.fl0.io/post"
+        );
+        const jsonData = await response.json();
+        setData(jsonData);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const formatDate = (dateString) => {
+    const options = { day: "2-digit", month: "long", year: "numeric" };
+    const date = new Date(dateString);
+    return date.toLocaleDateString("es-ES", options);
+  };
   return (
     <main className="text-white min-h-screen">
       <Navbar></Navbar>
 
       <div className="body min-h-screen p-6">
-        <div className="bg-slate-800 hidden md:block">
+        <div className=" aside bg-slate-800 hidden md:block">
           <div className="list_container p-1 mt-2 text-[25px]">
             <li className="listbox m-2 hover:bg-slate-400 rounded-md p-1">
               <a target="_blank" href="https://dev.to/" class="icon">
@@ -94,7 +119,17 @@ export default function Home() {
             </li>
           </div>
         </div>
-        <div className="bg-slate-500">segunda</div>
+        <div className="main bg-slate-500 p-5">
+          {data.data.map((x, index) => (
+            <Post
+              title={x.title}
+              key={index}
+              date={formatDate(x.createdAt)}
+              cover={x.cover}
+            ></Post>
+          ))}
+        </div>
+
         <div className="bg-slate-600 hidden lg:block"></div>
       </div>
     </main>
