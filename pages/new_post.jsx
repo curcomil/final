@@ -70,7 +70,7 @@ export default function NewPost() {
             </div>
           </form>
         </div>
-        <div>3</div>
+        <div></div>
       </div>
     </main>
   );
