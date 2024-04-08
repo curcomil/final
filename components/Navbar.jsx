@@ -1,21 +1,38 @@
+import { useState, useEffect } from "react";
 import Link from "next/link";
+import Router, { useRouter } from "next/router";
 
 export default function Navbar() {
+  const [token, setToken] = useState("");
+  const router = useRouter();
+
+  useEffect(() => {
+    const authToken = localStorage.getItem("authToken");
+    setToken(authToken || "");
+  }, []);
+
+  const logout = () => {
+    localStorage.clear();
+    router.reload("/");
+  };
+
   return (
-    <div className="navbar grid grid-cols-3 p-2 bg-slate-400">
+    <div className="navbar grid grid-cols-3 p-2 bg-[#FFFFFF] text-gray-800">
       <div className=" flex justify-start">
         <div className="flex flex-row items-center">
-          <img
-            src="https://dev-to-uploads.s3.amazonaws.com/uploads/logos/resized_logo_UQww2soKuUsjaOGNB38o.png"
-            alt=""
-            className="w-16 h-14"
-          />
+          <Link href={"/"}>
+            <img
+              src="https://dev-to-uploads.s3.amazonaws.com/uploads/logos/resized_logo_UQww2soKuUsjaOGNB38o.png"
+              alt=""
+              className="w-16 h-14"
+            />
+          </Link>
           <input
             type="text"
             placeholder="Search"
-            className="h-10 w-[500px] rounded-sm ml-2 p-1"
+            className="h-10 w-[500px] rounded-sm ml-2 p-1 bg-slate-100 ring"
           />
-          <button className="bg-purple-500 size-12 ml-2 flex justify-center items-center rounded-md hover:bg-cyan-600">
+          <button className=" size-12 ml-2 flex justify-center items-center rounded-md hover:bg-slate-200">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -31,21 +48,38 @@ export default function Navbar() {
       </div>
       <div></div>
       <div className="flex justify-end p-2">
-        <div className="flex justify-center items-center text-[22px]">
-          <Link
-            className="mr-3 hover:bg-red-500 p-3 hover:rounded-md"
-            href="/login"
-          >
-            Log in
-          </Link>
+        {token ? (
+          <div>
+            <Link
+              href="/new_post"
+              className=" text-xl border-2 border-[#757CFC] p-3 text-[#757CFC] rounded-md hover:bg-[#636EE4] hover:text-white"
+            >
+              Create post
+            </Link>
+            <button
+              className="ms-3 hover:bg-red-400 hover:text-white p-2 rounded-md"
+              onClick={logout}
+            >
+              Log out
+            </button>
+          </div>
+        ) : (
+          <div className="flex justify-center items-center text-[22px]">
+            <Link
+              className="mr-3 hover:bg-slate-200 p-3 hover:rounded-md"
+              href="/login"
+            >
+              Log in
+            </Link>
 
-          <Link
-            href="/register"
-            className="border-2 p-3 rounded-md hover:bg-red-700"
-          >
-            Create account
-          </Link>
-        </div>
+            <Link
+              href="/register"
+              className="border-2 border-[#757CFC] p-3 text-[#757CFC] rounded-md hover:bg-[#636EE4] hover:text-white"
+            >
+              Create account
+            </Link>
+          </div>
+        )}
       </div>
     </div>
   );
