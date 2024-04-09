@@ -1,40 +1,34 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Dev.to
+Este repositorio contiene un proyecto web desarrollado con React, Tailwind CSS, Next.js y Vite. El proyecto consume datos de una API externa para mostrar información dinámica.
 
-## Getting Started
+## Instalación
+Para instalar las dependencias del proyecto, asegúrate de tener Node.js y npm instalados en tu sistema. Luego, puedes clonar este repositorio y ejecutar el siguiente comando en tu terminal:
 
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+```
+git clone https://github.com/curcomil/final.git
+cd tu-repositorio
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Ejecución Local
+Una vez que hayas instalado las dependencias, puedes ejecutar el proyecto en un entorno local usando el siguiente comando:
+`npm run dev`
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+## Herramientas Implementadas
+React: Biblioteca de JavaScript para construir interfaces de usuario.
+Tailwind CSS: Framework de CSS utilitario para estilizar fácilmente aplicaciones web.
+Next.js: Framework de React para construir aplicaciones web modernas.
+Vite: Herramienta de construcción rápida para proyectos web modernos.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+## API UTILIZADA
+El proyecto consume datos de la API creada por compañeros y este autor durante nuestra estancia dentro de Kodemia. Puedes encontrar más información sobre esta API en su repositorio:
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+[Repositorio API](https://github.com/DEVFBA/k-desafio-node-backend-2.git)
+[API desplegada](https://kodemia-backend-challenge-d515b23a922f.herokuapp.com)
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Despliegue
+El proyecto está actualmente desplegado y accesible en línea. Puedes visitarlo en:
+[Proyecto Desplegado](https://devtofinalpractice.vercel.app/)
 
-## Learn More
+curcomil, `no gods, not masters`.
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
