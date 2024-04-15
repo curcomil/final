@@ -4,11 +4,12 @@ import { useRouter } from "next/router";
 
 export default function NewPost() {
   const { register, handleSubmit } = useForm();
-  const token = localStorage.getItem("authToken");
+
   const router = useRouter();
 
   const onSubmit = (data) => {
     console.log(data);
+    const token = localStorage.getItem("authToken");
     fetch("https://kodemia-backend-challenge-d515b23a922f.herokuapp.com/post", {
       method: "POST",
       headers: {
