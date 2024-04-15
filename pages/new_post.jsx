@@ -1,76 +1,70 @@
-import React, { useState } from "react";
+import { useForm } from "react-hook-form";
+import Navbar from "@/components/Navbar";
+import { useRouter } from "next/router";
 
 export default function NewPost() {
-  const [selectedFile, setSelectedFile] = useState(null);
+  const { register, handleSubmit } = useForm();
+  const token = localStorage.getItem("authToken");
+  const router = useRouter();
 
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    setSelectedFile(file);
-  };
-  const [inputValue, setInputValue] = useState("");
-  const [hashtags, setHashtags] = useState([]);
-
-  const handleInputChange = (e) => {
-    setInputValue(e.target.value);
-  };
-
-  const handleInputKeyDown = (e) => {
-    if (e.key === " " && inputValue.trim() !== "") {
-      setHashtags([...hashtags, inputValue.trim()]);
-      setInputValue("");
-    }
+  const onSubmit = (data) => {
+    console.log(data);
+    fetch("https://kodemia-backend-challenge-d515b23a922f.herokuapp.com/post", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(data),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data.message == "New Post Created") {
+          alert("Post creado correctamente");
+          router.push("/");
+        }
+      });
   };
 
   return (
-    <main className="p-3 text-black bg-slate-300 min-h-screen">
-      <nav>Navbar</nav>
-      <div className="body_post">
-        <div>1</div>
-        <div className="min-h-screen bg-slate-200 p-8">
-          <form onSubmit={(e) => e.preventDefault()}>
-            <div className="flex flex-row">
-              <label
-                htmlFor="file-upload"
-                className="bg-white border-2 border-slate-400 rounded-lg text-gray-600 font-bold py-2 px-4 rounded cursor-pointer"
-              >
-                {selectedFile ? selectedFile.name : "Add a cover image"}
-              </label>
-              <input
-                type="file"
-                id="file-upload"
-                className="hidden"
-                accept="image/*"
-                onChange={handleFileChange}
-              />
-            </div>
+    <main className=" text-black bg-slate-300 min-h-screen">
+      <nav className="mb-3">
+        <Navbar></Navbar>
+      </nav>
+      <div className="main_container flex min-h-screen justify-center">
+        <div className="w-[80%] bg-slate-200 p-8 flex flex-col">
+          <form className="flex flex-col" onSubmit={handleSubmit(onSubmit)}>
             <input
-              className="bg-transparent text-[50px] mt-3 mb-3 focus:border-none p-2"
+              className="mt-4 text-xl p-1 rounded-md bg-transparent "
               type="text"
-              placeholder="New post title here..."
+              {...register("cover")}
+              placeholder="Ingresa el url de la portada del post"
             />
-            <div>
-              <input
-                type="text"
-                value={inputValue}
-                onChange={handleInputChange}
-                onKeyDown={handleInputKeyDown}
-                placeholder="Add some tags"
-                className="bg-transparent text-gray-500 text-xl ms-3"
-              />
-              <div>
-                {hashtags.map((tag, index) => (
-                  <span
-                    key={index}
-                    className="tag m-3 text-xl boder-2 rounded-xl shadow-lg"
-                  >
-                    #{tag}
-                  </span>
-                ))}
-              </div>
-            </div>
+            <input
+              className="mt-4 text-6xl p-1 rounded-md bg-transparent"
+              type="text"
+              placeholder="Título"
+              {...register("title")}
+            />
+            <input
+              className="mt-4 text-xl p-1 rounded-md bg-transparent "
+              type="text"
+              {...register("tags")}
+              placeholder="Tags"
+            />
+            <textarea
+              className="mt-4 text-2xl p-1 rounded-md bg-transparent"
+              type="text"
+              {...register("content")}
+              placeholder="Add content"
+            />
+            <input
+              className="w-[70%] mt-6 mb-6 border-[3px] border-[#757CFC] rounded-lg m-3 text-xl p-2 hover:text-white hover:bg-indigo-500 duration-300"
+              type="submit"
+            />
           </form>
         </div>
-        <div></div>
       </div>
     </main>
   );

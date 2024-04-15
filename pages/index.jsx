@@ -123,18 +123,21 @@ export default function Home() {
         </div>
         <div className="main p-5">
           {data && data.data ? (
-            data.data.map((post, index) => (
-              <Link href={`/post_detail/${post._id}`} key={index}>
-                <Post
-                  title={post.title}
-                  date={formatDate(post.createdAt)}
-                  cover={post.cover}
-                  avatar={post.user.profile_picture}
-                  author={post.user.first_name}
-                  tags={post.tags}
-                />
-              </Link>
-            ))
+            data.data
+              .slice()
+              .reverse()
+              .map((post, index) => (
+                <Link href={`/post_detail/${post._id}`} key={index}>
+                  <Post
+                    title={post.title}
+                    date={formatDate(post.createdAt)}
+                    cover={post.cover}
+                    avatar={post.user.profile_picture}
+                    author={post.user.first_name}
+                    tags={post.tags}
+                  />
+                </Link>
+              ))
           ) : (
             <p>Cargando...</p>
           )}
